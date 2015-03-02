@@ -11,6 +11,11 @@ var alsoSaveLargeGraphs = true;
 var onlineGraph = false;
 
 #include "functions/save-as-png.jsx";
+#include "functions/select-mask-inverse-delete.jsx";
+#include "functions/duplicate-layer.jsx";
+#include "functions/select-none.jsx";
+#include "functions/select-layer.jsx";
+#include "functions/copy-paste-layer-style.jsx";
 
 // No need to change anything after this
 
@@ -99,6 +104,35 @@ for (var countryCounter = 0; countryCounter < countries.length; countryCounter++
     selectLayer("maxLossBox");
     var lineName = "expReturnCurve";
     DrawLine_v2(myLineArray);
+
+      app.activeDocument.artLayers.getByName("expReturnCurveMax").visible = onlineGraph;
+      app.activeDocument.artLayers.getByName("expReturnCurveMin").visible = onlineGraph;
+      app.activeDocument.artLayers.getByName("maxLossBox").visible = !onlineGraph;
+      app.activeDocument.artLayers.getByName("maxLossText").visible = !onlineGraph;
+      app.activeDocument.artLayers.getByName("maxReturnBox").visible = !onlineGraph;
+      app.activeDocument.artLayers.getByName("maxReturnText").visible = !onlineGraph;
+      if (onlineGraph) {
+
+          deleteLayer('expReturnCurveMax');
+          selectLayer('expReturnCurve');
+          duplicateLayer('expReturnCurve', 'expReturnCurveMax');
+          selectMaskInverseDelete('maxReturnBox');
+          selectNone();
+          copyLayerStyle('expReturnCurveMaxLayerStyle');
+          pasteLayerStyle('expReturnCurveMax');
+
+          deleteLayer('expReturnCurveMin');
+          selectLayer('expReturnCurve');
+          duplicateLayer('expReturnCurve', 'expReturnCurveMin');
+          selectMaskInverseDelete('maxLossBox');
+          selectNone();
+          copyLayerStyle('expReturnCurveMinLayerStyle');
+          pasteLayerStyle('expReturnCurveMin');
+
+
+
+      }
+      exit;
 
     // Change values
     app.activeDocument.layers.getByName("maxLossText").textItem.contents = Math.round(maxLoss) + "%";
