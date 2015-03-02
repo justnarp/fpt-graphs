@@ -1,5 +1,6 @@
 ﻿//var countries = new Array("DK", "SE", "FI", "NO");
-var countries = new Array("SEonline");
+//var countries = new Array("SE", "SEonline");
+var countries = new Array("SE", "SEonline");
 var graphs = new Array("con", "mod", "bal", "gro", "rf", "rf_plus");
 
 //var saveFolderAddress = "H:\\Graphs\\201403\\SE-historical-graphss\\";
@@ -54,8 +55,7 @@ for (var countryCounter = 0; countryCounter < countries.length; countryCounter++
   for (var graphsCounter = 0; graphsCounter < graphsLength; graphsCounter++) {
 
     // data
-  #include
-    "values/2015/retail-banking/se/historical-development.jsx";
+  #include "values/2015/retail-banking/se/historical-development.jsx";
 
     // Draw the curves
     var yearPosition2015 = 420;
@@ -105,6 +105,18 @@ for (var countryCounter = 0; countryCounter < countries.length; countryCounter++
     var lineName = "expReturnCurve";
     DrawLine_v2(myLineArray);
 
+
+
+    // Change values
+    app.activeDocument.layers.getByName("maxLossText").textItem.contents = Math.round(maxLoss) + "%";
+    app.activeDocument.layers.getByName("maxReturnText").textItem.contents = Math.round(maxReturn) + "%";
+
+    // Position box and text
+    positionLayerCenter("maxLossBox", maxLossPosition + 15, 188);
+    positionLayerCenter("maxLossText", maxLossPosition + 15, 58);
+    positionLayerCenter("maxReturnBox", maxReturnPosition + 15, 188);
+    positionLayerCenter("maxReturnText", maxReturnPosition + 15, 58);
+
       app.activeDocument.artLayers.getByName("expReturnCurveMax").visible = onlineGraph;
       app.activeDocument.artLayers.getByName("expReturnCurveMin").visible = onlineGraph;
       app.activeDocument.artLayers.getByName("maxLossBox").visible = !onlineGraph;
@@ -112,7 +124,6 @@ for (var countryCounter = 0; countryCounter < countries.length; countryCounter++
       app.activeDocument.artLayers.getByName("maxReturnBox").visible = !onlineGraph;
       app.activeDocument.artLayers.getByName("maxReturnText").visible = !onlineGraph;
       if (onlineGraph) {
-
           deleteLayer('expReturnCurveMax');
           selectLayer('expReturnCurve');
           duplicateLayer('expReturnCurve', 'expReturnCurveMax');
@@ -128,21 +139,7 @@ for (var countryCounter = 0; countryCounter < countries.length; countryCounter++
           selectNone();
           copyLayerStyle('expReturnCurveMinLayerStyle');
           pasteLayerStyle('expReturnCurveMin');
-
-
-
       }
-      exit;
-
-    // Change values
-    app.activeDocument.layers.getByName("maxLossText").textItem.contents = Math.round(maxLoss) + "%";
-    app.activeDocument.layers.getByName("maxReturnText").textItem.contents = Math.round(maxReturn) + "%";
-
-    // Position box and text
-    positionLayerCenter("maxLossBox", maxLossPosition + 15, 188);
-    positionLayerCenter("maxLossText", maxLossPosition + 15, 58);
-    positionLayerCenter("maxReturnBox", maxReturnPosition + 15, 188);
-    positionLayerCenter("maxReturnText", maxReturnPosition + 15, 58);
 
     var imgLocale = [];
     switch (imgCountry) {
@@ -164,18 +161,24 @@ for (var countryCounter = 0; countryCounter < countries.length; countryCounter++
 
 
     for (var i = 0; i < imgLocale.length; i++) {
-      var outputFolder = destinationFolder;
-      if (onlineGraph) {
-        outputFolder += '/online';
-      }
-      saveAsPng(outputFolder + '/' + countries[countryCounter],
+      saveAsPng(destinationFolder + '/' + countries[countryCounter],
           'RB_histdev_s_' + graphs[graphsCounter] + '_' + imgLocale[i] + countries[countryCounter] + '.png',
           alsoSaveLargeGraphs);
-      exit;
     }
 
   }
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 function savePictureOLD(saveFile) {
