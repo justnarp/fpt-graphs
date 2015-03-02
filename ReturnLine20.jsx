@@ -1,8 +1,12 @@
 ﻿//var countries = new Array("SE", "FI", "NO", "DK"); // not for DK, only 10 years
 var countries = new Array("SE"); // not for DK, only 10 years
 var graphs = new Array("con", "mod", "bal", "gro", "rf", "rf_plus");
-//var destinationFolder = "/Users/MLP/Repos/ScriptAndPhotoshop/graphs/2014";
 var alsoSaveLargeGraphs = true;
+var privateBanking = true;
+
+if(privateBanking){
+  graphs = new Array("eo", "fio", "con", "mod", "bal", "gro", "rf", "rf_plus");
+}
 
 #include "destination-folder.jsx";
 #include "functions/set-foreground-color.jsx";
@@ -28,12 +32,13 @@ for (var countryCounter = 0; countryCounter < countries.length; countryCounter++
   var imgCountry = countries[countryCounter];
 
     // don't make rf_plus for anyone but norway
-    var graphsLength = graphs.length - (countries[countryCounter] == "NO" ? 0 : 1);
+    var graphsLength = graphs.length - (imgCountry == "NO" ? 0 : 1);
 
     for (var graphsCounter = 0; graphsCounter < graphsLength; graphsCounter++) {
 
       var graph = graphs[graphsCounter];
-    #include "values/2015/retail-banking/se/min-exp-max-returns.jsx";
+    //#include "values/2015/retail-banking/se/min-exp-max-returns.jsx";
+    #include "values/2015/private-banking/se/min-exp-max-returns.jsx";
 
 // Determine boundaries
         var highestValueInPercent = maxReturn[19];
@@ -160,7 +165,11 @@ for (var countryCounter = 0; countryCounter < countries.length; countryCounter++
         positionLayerCenter("xAxis20YearLine", xAxisPos[19], graphDimensionY / 2 + 20);
 
 // Make gradient
+      if(privateBanking) {
+        setForegroundColor(175, 175, 175);
+      } else {
         setForegroundColor(80, 160, 215);
+      }
         app.activeDocument.artLayers.getByName("emptyGradient").visible = false;
         deleteLayer("gradient");
         selectLayer("emptyGradient");
@@ -170,6 +179,7 @@ for (var countryCounter = 0; countryCounter < countries.length; countryCounter++
         gradientLoop(expReturn, maxReturn);
         gradientLoop(expReturn, minReturn);
         selectNone();
+
 
 // Save graphs
         var imgLocale = [];
