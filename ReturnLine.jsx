@@ -1,8 +1,10 @@
-﻿var countries = new Array("SE", "FI", "NO", "DK"); // not for DK, only 10 years
+﻿//var countries = new Array("SE", "FI", "NO", "DK"); // not for DK, only 10 years
+var countries = new Array("SE"); // not for DK, only 10 years
 var graphs = new Array("con", "mod", "bal", "gro", "rf", "rf_plus");
-var destinationFolder = "/Users/MLP/Repos/ScriptAndPhotoshop/graphs/2014";
-var alsoSaveLargeGraphs = false;
+//var destinationFolder = "/Users/MLP/Repos/ScriptAndPhotoshop/graphs/2014";
+var alsoSaveLargeGraphs = true;
 
+#include "destination-folder.jsx";
 #include "functions/set-foreground-color.jsx";
 #include "functions/make-selection.jsx";
 #include "functions/gradient-selection.jsx";
@@ -18,18 +20,21 @@ var alsoSaveLargeGraphs = false;
 #include "functions/delete-layer.jsx";
 #include "functions/rename-layer.jsx";
 #include "functions/duplicate-layer.jsx";
-#include "values/2014/min-exp-max-return.jsx";
+//#include "values/2014/min-exp-max-return.jsx";
 
 for (var countryCounter = 0; countryCounter < countries.length; countryCounter++) {
 
+  var imgCountry = countries[countryCounter];
+
     // don't make rf_plus for anyone but norway
-    var graphsLength = graphs.length - (countries[countryCounter] == "NO" ? 0 : 1);
+    var graphsLength = graphs.length - (imgCountry == "NO" ? 0 : 1);
+
+
 
     for (var graphsCounter = 0; graphsCounter < graphsLength; graphsCounter++) {
 
-        var minReturn = minExpMaxReturns(countries[countryCounter], graphs[graphsCounter]).minReturn
-        var expReturn = minExpMaxReturns(countries[countryCounter], graphs[graphsCounter]).expReturn
-        var maxReturn = minExpMaxReturns(countries[countryCounter], graphs[graphsCounter]).maxReturn
+      var graph = graphs[graphsCounter];
+    #include "values/2015/retail-banking/se/min-exp-max-returns.jsx";
 
         // Determine boundaries
         var highestValueInPercent = maxReturn[9];
@@ -181,7 +186,6 @@ for (var countryCounter = 0; countryCounter < countries.length; countryCounter++
             saveAsPng(destinationFolder + '/' + countries[countryCounter],
                 'RB_capdevl_s_'+graphs[graphsCounter]+'_'+imgLocale[i] + countries[countryCounter] + '.png',
                 alsoSaveLargeGraphs);
-            exit;
         }
     }
 }

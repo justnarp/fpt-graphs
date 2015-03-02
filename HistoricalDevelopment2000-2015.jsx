@@ -5,12 +5,13 @@ var graphs = new Array("con", "mod", "bal", "gro", "rf", "rf_plus");
 
 //var saveFolderAddress = "H:\\Graphs\\201403\\SE-historical-graphss\\";
 //var saveFolderAddress = "/Users/MLP/Repos/ScriptAndPhotoshop/graphs";
+//var destinationFolder = "C:\\graphs\\2015\\retail-banking\\";
 
-var destinationFolder = "C:\\graphs\\2015\\retail-banking\\";
+
 var alsoSaveLargeGraphs = true;
 
 var onlineGraph = false;
-
+#include "destination-folder.jsx";
 #include "functions/save-as-png.jsx";
 #include "functions/select-mask-inverse-delete.jsx";
 #include "functions/duplicate-layer.jsx";
@@ -54,7 +55,6 @@ for (var countryCounter = 0; countryCounter < countries.length; countryCounter++
 
   for (var graphsCounter = 0; graphsCounter < graphsLength; graphsCounter++) {
 
-    // data
   #include "values/2015/retail-banking/se/historical-development.jsx";
 
     // Draw the curves
