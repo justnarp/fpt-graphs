@@ -1,12 +1,14 @@
 ﻿//var countries = new Array("DK", "SE", "FI", "NO");
 //var countries = new Array("SE", "SEonline");
-var countries = new Array("SE", "SEonline");
-var graphs = new Array("con", "mod", "bal", "gro", "rf", "rf_plus");
+var countries = new Array("SE");
+var graphs = new Array("con", "mod", "bal", "gro", "rf", "eo");
 
-//var saveFolderAddress = "H:\\Graphs\\201403\\SE-historical-graphss\\";
-//var saveFolderAddress = "/Users/MLP/Repos/ScriptAndPhotoshop/graphs";
-//var destinationFolder = "C:\\graphs\\2015\\retail-banking\\";
 
+var privateBanking = true;
+
+if(privateBanking){
+  graphs = new Array("con", "mod", "bal", "gro", "rf", "eo", "fio");
+}
 
 var alsoSaveLargeGraphs = true;
 
@@ -41,6 +43,8 @@ var lowestYPixels = 20 + graphDimensionY - graphPaddingBottom;
 
 
 for (var countryCounter = 0; countryCounter < countries.length; countryCounter++) {
+
+  // only norway wants to print the last graph in the array (eo/rf_plus)
   var graphsLength = graphs.length - (countries[countryCounter] == "NO" ? 0 : 1);
 
   var imgCountry = countries[countryCounter];
@@ -113,16 +117,23 @@ for (var countryCounter = 0; countryCounter < countries.length; countryCounter++
 
     // Position box and text
     positionLayerCenter("maxLossBox", maxLossPosition + 15, 188);
+    positionLayerCenter("maxLossBoxPB", maxLossPosition + 15, 188);
     positionLayerCenter("maxLossText", maxLossPosition + 15, 58);
     positionLayerCenter("maxReturnBox", maxReturnPosition + 15, 188);
+    positionLayerCenter("maxReturnBoxPB", maxReturnPosition + 15, 188);
     positionLayerCenter("maxReturnText", maxReturnPosition + 15, 58);
 
       app.activeDocument.artLayers.getByName("expReturnCurveMax").visible = onlineGraph;
       app.activeDocument.artLayers.getByName("expReturnCurveMin").visible = onlineGraph;
-      app.activeDocument.artLayers.getByName("maxLossBox").visible = !onlineGraph;
       app.activeDocument.artLayers.getByName("maxLossText").visible = !onlineGraph;
       app.activeDocument.artLayers.getByName("maxReturnBox").visible = !onlineGraph;
       app.activeDocument.artLayers.getByName("maxReturnText").visible = !onlineGraph;
+
+    app.activeDocument.artLayers.getByName("maxLossBox").visible = !privateBanking && !onlineGraph;
+    app.activeDocument.artLayers.getByName("maxLossBoxPB").visible = privateBanking && !onlineGraph;
+    app.activeDocument.artLayers.getByName("maxReturnBox").visible = !privateBanking && !onlineGraph;
+    app.activeDocument.artLayers.getByName("maxReturnBoxPB").visible = privateBanking && !onlineGraph;
+
       if (onlineGraph) {
           deleteLayer('expReturnCurveMax');
           selectLayer('expReturnCurve');
@@ -142,6 +153,16 @@ for (var countryCounter = 0; countryCounter < countries.length; countryCounter++
       }
 
     var imgLocale = [];
+
+
+    var locales = {
+      'DK': ['da', 'en'],
+      'SE': ['sv', 'en'],
+      'NO': ['no', 'en'],
+      'FI': ['fi', 'sv', 'en']
+    };
+
+
     switch (imgCountry) {
       case 'DK':
         imgLocale.push('da');
@@ -159,10 +180,27 @@ for (var countryCounter = 0; countryCounter < countries.length; countryCounter++
     }
     imgLocale.push('en');
 
+    var graphType = graphs[graphsCounter]
+    if(!privateBanking && graphType == 'eo') {
+      graphType = 'rf_plus'
+    }
+
+/*
+    locales[imgCountry].forEach(function(l){
+      saveAsPng(destinationFolder + '/' + countries[countryCounter],
+          'RB_histdev_s_' + graphType + '_' + l + countries[countryCounter] + '.png',
+          alsoSaveLargeGraphs);
+    });
+*/
+    for(i=0;i<locales[countries[countryCounter]].length;i++){
+      alert(locales[i])
+    }
+    exit;
+
 
     for (var i = 0; i < imgLocale.length; i++) {
       saveAsPng(destinationFolder + '/' + countries[countryCounter],
-          'RB_histdev_s_' + graphs[graphsCounter] + '_' + imgLocale[i] + countries[countryCounter] + '.png',
+          'RB_histdev_s_' + graphType + '_' + imgLocale[i] + countries[countryCounter] + '.png',
           alsoSaveLargeGraphs);
     }
 
