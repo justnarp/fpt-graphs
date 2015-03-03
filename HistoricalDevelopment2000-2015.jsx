@@ -1,58 +1,13 @@
-﻿//var countries = new Array('DK', 'SE', 'FI', 'NO');
-//var countries = new Array('SE', 'SEonline');
-var countries = new Array('SE');
-var graphs = new Array('con', 'mod', 'bal', 'gro', 'rf', 'eo');
-
-var privateBanking = true;
+﻿// Adjust now
 var alsoSaveLargeGraphs = true;
-var onlineGraph = false;
-var subDestinationFolder = 'retail-banking';
 
+// Add data
 #include 'values/2015/private-banking/se/historical-development.jsx';
+#include 'values/2015/retail-banking/se/historical-development.jsx';
 
 
-var countryData = {};
-countryData['private-banking'] = {};
-countryData['retail-banking'] = {};
 
-
-if(typeof dataSE_PB != 'undefined')countryData['private-banking']['SE'] = dataSE_PB;
-if(typeof dataNO_PB != 'undefined')countryData['private-banking']['NO'] = dataNO_PB;
-
-
-if (privateBanking) {
-  graphs = new Array('con', 'mod', 'bal', 'gro', 'rf', 'eo', 'fio')
-  subDestinationFolder = 'private-banking'
-}
-
-//alert(countryData['private-banking']['SE'].con.maxLoss);
-
-for(var bankType in countryData) {
-  for(var country in countryData[bankType]) {
-    for(var dataType in countryData[bankType][country]) {
-
-      // con, mod, bal ...
-
-      //countryData[bankType][country][dataType].excelLineArray
-      //countryData[bankType][country][dataType].maxLoss
-
-      for(var k in countryData[bankType][country][dataType]) {
-        alert(k + ': ' + countryData[bankType][country][dataType][k])
-      }
-    }
-  }
-}
-
-
-//
-//for(var c in countryData['private-banking']) {
-//  alert(countryData['private-banking'][c]['con']['maxLoss'])
-//}
-
-//alert(countryData['private-banking']['SE'].length);
-exit
-
-
+// Watch the magic happen
 
 #include 'destination-folder.jsx';
 #include 'functions/save-as-png.jsx';
@@ -62,125 +17,124 @@ exit
 #include 'functions/select-layer.jsx';
 #include 'functions/copy-paste-layer-style.jsx';
 
+var countryData = {};
+countryData['private-banking'] = {};
+countryData['retail-banking'] = {};
+if(typeof dataPBSE != 'undefined')countryData['private-banking']['SE'] = dataPBSE;
+if(typeof dataPBNO != 'undefined')countryData['private-banking']['NO'] = dataPBNO;
+if(typeof dataRBSE != 'undefined')countryData['retail-banking']['SE'] = dataRBSE;
+if(typeof dataRBSE != 'undefined')countryData['retail-banking']['SEonline'] = dataRBSE;
 
 // Graph dimensions
-var graphDimensionX = 400;
-var graphDimensionY = 290;
-var graphPaddingTop = 25;
-var graphPaddingBottom = 25;
-var xAxisPosition1Years = 20;
-var xAxisPosition2Years = 20 + (graphDimensionX / 9);
-var xAxisPosition3Years = 20 + (graphDimensionX / 9) * 2;
-var xAxisPosition4Years = 20 + (graphDimensionX / 9) * 3;
-var xAxisPosition5Years = 20 + (graphDimensionX / 9) * 4;
-var xAxisPosition6Years = 20 + (graphDimensionX / 9) * 5;
-var xAxisPosition7Years = 20 + (graphDimensionX / 9) * 6;
-var xAxisPosition8Years = 20 + (graphDimensionX / 9) * 7;
-var xAxisPosition9Years = 20 + (graphDimensionX / 9) * 8;
-var xAxisPosition10Years = 20 + graphDimensionX;
-var highestYPixels = 20 + graphPaddingTop;
-var lowestYPixels = 20 + graphDimensionY - graphPaddingBottom;
+var graphDimensionX = 400,
+    graphDimensionY = 290,
+    graphPaddingTop = 25,
+    graphPaddingBottom = 25,
+    highestYPixels = 20 + graphPaddingTop,
+    lowestYPixels = 20 + graphDimensionY - graphPaddingBottom,
+    yearPosition2015 = 420,
+    yearPosition2000 = 20;
 
+// Do the graphs
+for (var bankType in countryData) {
+  for (var country in countryData[bankType]) {
+    for (var dataType in countryData[bankType][country]) {
 
-for (var countryCounter = 0; countryCounter < countries.length; countryCounter++) {
-
-  // only norway wants to print the last graph in the array (eo/rf_plus)
-  var graphsLength = graphs.length - (countries[countryCounter] == 'NO' ? 0 : 1);
-
-  var imgCountry = countries[countryCounter];
-
-  if (imgCountry == 'SEonline') {
-    imgCountry = 'SE';
-    onlineGraph = true;
-  }
-
-  //var countryFolder = new Folder(saveFolderAddress + '/' + imgCountry);
-  //if (!countryFolder.exists) countryFolder.create();
-
-  for (var graphsCounter = 0; graphsCounter < graphsLength; graphsCounter++) {
-
-  //#include 'values/2015/retail-banking/se/historical-development.jsx';
-    var graphType = graphs[graphsCounter];
-
-    //var data = historicalDevelopmentSE(imgCountry, graphType);
-
-
-
-
-    // Draw the curves
-    var yearPosition2015 = 420;
-    var yearPosition2000 = 20;
-
-    var maxLossPosition = yearPosition2015 - (yearPosition2015 - yearPosition2000) * (2015 * 12 - (maxLossPositionYear * 12 + maxLossPositionMonth - 1)) / (2015 * 12 - 2000 * 12);
-    var maxReturnPosition = yearPosition2015 - (yearPosition2015 - yearPosition2000) * (2015 * 12 - (maxReturnPositionYear * 12 + maxReturnPositionMonth - 1)) / (2015 * 12 - 2000 * 12);
-
-    var yearPositionY = onlineGraph ? 320 : 23; // top: 23 - bottom: 320
-
-    app.activeDocument.layerSets.getByName('legend online').visible = onlineGraph;
-
-    var axisPosition2015 = yearPosition2015;
-    positionLayerCenter('xAxis2015Line', axisPosition2015, 165);
-    positionLayerCenter('xAxis2015Text', axisPosition2015, yearPositionY);
-    var axisPosition2010 = yearPosition2015 - (yearPosition2015 - yearPosition2000) * (2015 - (2010)) / (2015 - 2000);
-    positionLayerCenter('xAxis2010Line', axisPosition2010, 165);
-    positionLayerCenter('xAxis2010Text', axisPosition2010, yearPositionY);
-    var axisPosition2005 = yearPosition2015 - (yearPosition2015 - yearPosition2000) * (2015 - (2005)) / (2015 - 2000);
-    positionLayerCenter('xAxis2005Line', axisPosition2005, 165);
-    positionLayerCenter('xAxis2005Text', axisPosition2005, yearPositionY);
-    var axisPosition2000 = yearPosition2015 - (yearPosition2015 - yearPosition2000) * (2015 - (2000)) / (2015 - 2000);
-    positionLayerCenter('xAxis2000Text', axisPosition2000, yearPositionY);
-    app.activeDocument.artLayers.getByName('xAxis2000Text').visible = onlineGraph;
-
-
-    var lowestNumberInGraph = 10000;
-    var highestNumberInGraph = -10000;
-    for (var i = 0; i < excelLineArray.length; i++) {
-      if (excelLineArray[i] < lowestNumberInGraph) {
-        lowestNumberInGraph = excelLineArray[i];
+      var doTheGraphs = true;
+      var saveDataTypeAs = dataType;
+      var onlineGraphs = false;
+      if (bankType == 'retail-banking') {
+        // retail-banking should only save 'eo' for norway, and it should be saved as 'rf_plus'
+        if (dataType == 'eo') {
+          if (country == 'NO') {
+            saveDataTypeAs = 'rf_plus';
+          } else doTheGraphs = false;
+        }
+        // retail-banking don't want fio graph
+        if (dataType == 'fio') doTheGraphs = false;
+        // do the online graphs
+        if (country == 'SEonline') onlineGraphs = true;
       }
-      if (excelLineArray[i] > highestNumberInGraph) {
-        highestNumberInGraph = excelLineArray[i];
-      }
-    }
 
-    var myLineArray = new Array();
-    var xPositionForGraph = 0;
-    var yPositionForGraph = 0;
-    for (var i = 0; i < excelLineArray.length; i++) {
-      xPositionForGraph = 20 + ((graphDimensionX) / excelLineArray.length) * i;
-      yPositionForGraph = graphDimensionY - (lowestNumberInGraph - excelLineArray[i]) / (lowestNumberInGraph - highestNumberInGraph) * (graphDimensionY - (20 + graphPaddingTop));
-      myLineArray[i] = [xPositionForGraph, yPositionForGraph];
-    }
-    selectLayer('maxLossBox');
-    var lineName = 'expReturnCurve';
-    DrawLine_v2(myLineArray);
+      if (doTheGraphs) {
+        // Data values
+        var excelLineArray = countryData[bankType][country][dataType].excelLineArray,
+            maxLoss = countryData[bankType][country][dataType].maxLoss,
+            maxLossPositionMonth = countryData[bankType][country][dataType].maxLossPositionMonth,
+            maxLossPositionYear = countryData[bankType][country][dataType].maxLossPositionYear,
+            maxReturn = countryData[bankType][country][dataType].maxReturn,
+            maxReturnPositionMonth = countryData[bankType][country][dataType].maxReturnPositionMonth,
+            maxReturnPositionYear = countryData[bankType][country][dataType].maxReturnPositionYear;
 
+        // Draw the curves
+        var maxLossPosition = yearPosition2015 - (yearPosition2015 - yearPosition2000) * (2015 * 12 - (maxLossPositionYear * 12 + maxLossPositionMonth - 1)) / (2015 * 12 - 2000 * 12);
+        var maxReturnPosition = yearPosition2015 - (yearPosition2015 - yearPosition2000) * (2015 * 12 - (maxReturnPositionYear * 12 + maxReturnPositionMonth - 1)) / (2015 * 12 - 2000 * 12);
 
+        var yearPositionY = onlineGraphs ? 320 : 23; // top: 23 - bottom: 320
 
-    // Change values
-    app.activeDocument.layers.getByName('maxLossText').textItem.contents = Math.round(maxLoss) + '%';
-    app.activeDocument.layers.getByName('maxReturnText').textItem.contents = Math.round(maxReturn) + '%';
+        app.activeDocument.layerSets.getByName('legend online').visible = onlineGraphs;
 
-    // Position box and text
-    positionLayerCenter('maxLossBox', maxLossPosition + 15, 188);
-    positionLayerCenter('maxLossBoxPB', maxLossPosition + 15, 188);
-    positionLayerCenter('maxLossText', maxLossPosition + 15, 58);
-    positionLayerCenter('maxReturnBox', maxReturnPosition + 15, 188);
-    positionLayerCenter('maxReturnBoxPB', maxReturnPosition + 15, 188);
-    positionLayerCenter('maxReturnText', maxReturnPosition + 15, 58);
+        var axisPosition2015 = yearPosition2015;
+        positionLayerCenter('xAxis2015Line', axisPosition2015, 165);
+        positionLayerCenter('xAxis2015Text', axisPosition2015, yearPositionY);
+        var axisPosition2010 = yearPosition2015 - (yearPosition2015 - yearPosition2000) * (2015 - (2010)) / (2015 - 2000);
+        positionLayerCenter('xAxis2010Line', axisPosition2010, 165);
+        positionLayerCenter('xAxis2010Text', axisPosition2010, yearPositionY);
+        var axisPosition2005 = yearPosition2015 - (yearPosition2015 - yearPosition2000) * (2015 - (2005)) / (2015 - 2000);
+        positionLayerCenter('xAxis2005Line', axisPosition2005, 165);
+        positionLayerCenter('xAxis2005Text', axisPosition2005, yearPositionY);
+        var axisPosition2000 = yearPosition2015 - (yearPosition2015 - yearPosition2000) * (2015 - (2000)) / (2015 - 2000);
+        positionLayerCenter('xAxis2000Text', axisPosition2000, yearPositionY);
+        app.activeDocument.artLayers.getByName('xAxis2000Text').visible = onlineGraphs;
 
-      app.activeDocument.artLayers.getByName('expReturnCurveMax').visible = onlineGraph;
-      app.activeDocument.artLayers.getByName('expReturnCurveMin').visible = onlineGraph;
-      app.activeDocument.artLayers.getByName('maxLossText').visible = !onlineGraph;
-      app.activeDocument.artLayers.getByName('maxReturnBox').visible = !onlineGraph;
-      app.activeDocument.artLayers.getByName('maxReturnText').visible = !onlineGraph;
+        var lowestNumberInGraph = 10000;
+        var highestNumberInGraph = -10000;
+        for (var i = 0; i < excelLineArray.length; i++) {
+          if (excelLineArray[i] < lowestNumberInGraph) {
+            lowestNumberInGraph = excelLineArray[i];
+          }
+          if (excelLineArray[i] > highestNumberInGraph) {
+            highestNumberInGraph = excelLineArray[i];
+          }
+        }
 
-    app.activeDocument.artLayers.getByName('maxLossBox').visible = !privateBanking && !onlineGraph;
-    app.activeDocument.artLayers.getByName('maxLossBoxPB').visible = privateBanking && !onlineGraph;
-    app.activeDocument.artLayers.getByName('maxReturnBox').visible = !privateBanking && !onlineGraph;
-    app.activeDocument.artLayers.getByName('maxReturnBoxPB').visible = privateBanking && !onlineGraph;
+        var myLineArray = new Array();
+        var xPositionForGraph = 0;
+        var yPositionForGraph = 0;
+        for (var i = 0; i < excelLineArray.length; i++) {
+          xPositionForGraph = 20 + ((graphDimensionX) / excelLineArray.length) * i;
+          yPositionForGraph = graphDimensionY - (lowestNumberInGraph - excelLineArray[i]) / (lowestNumberInGraph - highestNumberInGraph) * (graphDimensionY - (20 + graphPaddingTop));
+          myLineArray[i] = [xPositionForGraph, yPositionForGraph];
+        }
+        selectLayer('maxLossBox');
+        var lineName = 'expReturnCurve';
+        DrawLine_v2(myLineArray);
 
-      if (onlineGraph) {
+        // Change values
+        app.activeDocument.layers.getByName('maxLossText').textItem.contents = Math.round(maxLoss) + '%';
+        app.activeDocument.layers.getByName('maxReturnText').textItem.contents = Math.round(maxReturn) + '%';
+
+        // Position box and text
+        positionLayerCenter('maxLossBox', maxLossPosition + 15, 188);
+        positionLayerCenter('maxReturnBox', maxReturnPosition + 15, 188);
+        positionLayerCenter('maxLossBoxPB', maxLossPosition + 15, 188);
+        positionLayerCenter('maxReturnBoxPB', maxReturnPosition + 15, 188);
+        positionLayerCenter('maxLossText', maxLossPosition + 15, 58);
+        positionLayerCenter('maxReturnText', maxReturnPosition + 15, 58);
+
+        app.activeDocument.artLayers.getByName('expReturnCurveMax').visible = onlineGraphs;
+        app.activeDocument.artLayers.getByName('expReturnCurveMin').visible = onlineGraphs;
+        app.activeDocument.artLayers.getByName('maxLossText').visible = !onlineGraphs;
+        app.activeDocument.artLayers.getByName('maxReturnBox').visible = !onlineGraphs;
+        app.activeDocument.artLayers.getByName('maxReturnText').visible = !onlineGraphs;
+
+        var privateBanking = bankType == 'private-banking';
+        app.activeDocument.artLayers.getByName('maxLossBox').visible = !privateBanking && !onlineGraphs;
+        app.activeDocument.artLayers.getByName('maxReturnBox').visible = !privateBanking && !onlineGraphs;
+        app.activeDocument.artLayers.getByName('maxLossBoxPB').visible = privateBanking && !onlineGraphs;
+        app.activeDocument.artLayers.getByName('maxReturnBoxPB').visible = privateBanking && !onlineGraphs;
+
+        if (onlineGraphs) {
           deleteLayer('expReturnCurveMax');
           selectLayer('expReturnCurve');
           duplicateLayer('expReturnCurve', 'expReturnCurveMax');
@@ -188,7 +142,6 @@ for (var countryCounter = 0; countryCounter < countries.length; countryCounter++
           selectNone();
           copyLayerStyle('expReturnCurveMaxLayerStyle');
           pasteLayerStyle('expReturnCurveMax');
-
           deleteLayer('expReturnCurveMin');
           selectLayer('expReturnCurve');
           duplicateLayer('expReturnCurve', 'expReturnCurveMin');
@@ -196,26 +149,23 @@ for (var countryCounter = 0; countryCounter < countries.length; countryCounter++
           selectNone();
           copyLayerStyle('expReturnCurveMinLayerStyle');
           pasteLayerStyle('expReturnCurveMin');
+        }
+
+        var locales = {
+          'DK': ['da', 'en'],
+          'SE': ['sv', 'en'],
+          'SEonline': ['sv', 'en'],
+          'NO': ['no', 'en'],
+          'FI': ['fi', 'sv', 'en']
+        };
+
+        for (i = 0; i < locales[country].length; i++) {
+          var folderName = destinationFolder + '/' + country + '/' + bankType;
+          var fileName = 'RB_histdev_s_' + saveDataTypeAs + '_' + locales[country][i] + country + '.png';
+          saveAsPng(folderName, fileName, alsoSaveLargeGraphs);
+        }
       }
-
-    var locales = {
-      'DK': ['da', 'en'],
-      'SE': ['sv', 'en'],
-      'NO': ['no', 'en'],
-      'FI': ['fi', 'sv', 'en']
-    };
-
-
-    if(!privateBanking && graphType == 'eo') {
-      graphType = 'rf_plus';
     }
-
-    for (i = 0; i < locales[imgCountry].length; i++) {
-      var folderName = destinationFolder + '/' + subDestinationFolder + '/' + countries[countryCounter];
-      var fileName = 'RB_histdev_s_' + graphType + '_' + locales[imgCountry][i] + countries[countryCounter] + '.png';
-      saveAsPng(folderName, fileName, alsoSaveLargeGraphs);
-    }
-
   }
 }
 
