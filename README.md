@@ -1,7 +1,7 @@
 # Script and Photoshop CS5
 
-http://wwwimages.adobe.com/content/dam/Adobe/en/devnet/photoshop/pdfs/photoshop_cs5_javascript_ref.pdf
+[Photoshop CS5 scripting reference](http://wwwimages.adobe.com/content/dam/Adobe/en/devnet/photoshop/pdfs/photoshop_cs5_javascript_ref.pdf)
 
-http://codepen.io/mikelothar/pen/RNJXrQ
+[min-exp-max-returns.jsx generator](http://codepen.io/mikelothar/pen/RNJXrQ)
 
-http://codepen.io/mikelothar/pen/LELRqQ
+[historical-development.jsx generator](http://codepen.io/mikelothar/pen/LELRqQ)
