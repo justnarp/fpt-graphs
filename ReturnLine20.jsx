@@ -5,7 +5,7 @@ var alsoSaveLargeGraphs = true;
 var privateBanking = true;
 
 if(privateBanking){
-  graphs = new Array("eo", "fio", "con", "mod", "bal", "gro", "rf", "rf_plus");
+  graphs = new Array("eo", "fio", "con", "mod", "bal", "gro", "rf");
 }
 
 #include "destination-folder.jsx";
@@ -166,7 +166,9 @@ for (var countryCounter = 0; countryCounter < countries.length; countryCounter++
 
 // Make gradient
       if(privateBanking) {
-        setForegroundColor(175, 175, 175);
+        setForegroundColor(175, 175, 175); // light gray
+        //setForegroundColor(125, 125, 125); // Same colour gray as used in PB pdf
+        //setForegroundColor(140, 140, 140); // a bit lighter than used in PB pdf
       } else {
         setForegroundColor(80, 160, 215);
       }
