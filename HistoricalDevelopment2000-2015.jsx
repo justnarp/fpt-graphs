@@ -1,27 +1,67 @@
-﻿//var countries = new Array("DK", "SE", "FI", "NO");
-//var countries = new Array("SE", "SEonline");
-var countries = new Array("SE");
-var graphs = new Array("con", "mod", "bal", "gro", "rf", "eo");
-
+﻿//var countries = new Array('DK', 'SE', 'FI', 'NO');
+//var countries = new Array('SE', 'SEonline');
+var countries = new Array('SE');
+var graphs = new Array('con', 'mod', 'bal', 'gro', 'rf', 'eo');
 
 var privateBanking = true;
+var alsoSaveLargeGraphs = true;
+var onlineGraph = false;
+var subDestinationFolder = 'retail-banking';
 
-if(privateBanking){
-  graphs = new Array("con", "mod", "bal", "gro", "rf", "eo", "fio");
+#include 'values/2015/private-banking/se/historical-development.jsx';
+
+
+var countryData = {};
+countryData['private-banking'] = {};
+countryData['retail-banking'] = {};
+
+
+if(typeof dataSE_PB != 'undefined')countryData['private-banking']['SE'] = dataSE_PB;
+if(typeof dataNO_PB != 'undefined')countryData['private-banking']['NO'] = dataNO_PB;
+
+
+if (privateBanking) {
+  graphs = new Array('con', 'mod', 'bal', 'gro', 'rf', 'eo', 'fio')
+  subDestinationFolder = 'private-banking'
 }
 
-var alsoSaveLargeGraphs = true;
+//alert(countryData['private-banking']['SE'].con.maxLoss);
 
-var onlineGraph = false;
-#include "destination-folder.jsx";
-#include "functions/save-as-png.jsx";
-#include "functions/select-mask-inverse-delete.jsx";
-#include "functions/duplicate-layer.jsx";
-#include "functions/select-none.jsx";
-#include "functions/select-layer.jsx";
-#include "functions/copy-paste-layer-style.jsx";
+for(var bankType in countryData) {
+  for(var country in countryData[bankType]) {
+    for(var dataType in countryData[bankType][country]) {
 
-// No need to change anything after this
+      // con, mod, bal ...
+
+      //countryData[bankType][country][dataType].excelLineArray
+      //countryData[bankType][country][dataType].maxLoss
+
+      for(var k in countryData[bankType][country][dataType]) {
+        alert(k + ': ' + countryData[bankType][country][dataType][k])
+      }
+    }
+  }
+}
+
+
+//
+//for(var c in countryData['private-banking']) {
+//  alert(countryData['private-banking'][c]['con']['maxLoss'])
+//}
+
+//alert(countryData['private-banking']['SE'].length);
+exit
+
+
+
+#include 'destination-folder.jsx';
+#include 'functions/save-as-png.jsx';
+#include 'functions/select-mask-inverse-delete.jsx';
+#include 'functions/duplicate-layer.jsx';
+#include 'functions/select-none.jsx';
+#include 'functions/select-layer.jsx';
+#include 'functions/copy-paste-layer-style.jsx';
+
 
 // Graph dimensions
 var graphDimensionX = 400;
@@ -45,7 +85,7 @@ var lowestYPixels = 20 + graphDimensionY - graphPaddingBottom;
 for (var countryCounter = 0; countryCounter < countries.length; countryCounter++) {
 
   // only norway wants to print the last graph in the array (eo/rf_plus)
-  var graphsLength = graphs.length - (countries[countryCounter] == "NO" ? 0 : 1);
+  var graphsLength = graphs.length - (countries[countryCounter] == 'NO' ? 0 : 1);
 
   var imgCountry = countries[countryCounter];
 
@@ -59,7 +99,13 @@ for (var countryCounter = 0; countryCounter < countries.length; countryCounter++
 
   for (var graphsCounter = 0; graphsCounter < graphsLength; graphsCounter++) {
 
-  #include "values/2015/retail-banking/se/historical-development.jsx";
+  //#include 'values/2015/retail-banking/se/historical-development.jsx';
+    var graphType = graphs[graphsCounter];
+
+    //var data = historicalDevelopmentSE(imgCountry, graphType);
+
+
+
 
     // Draw the curves
     var yearPosition2015 = 420;
@@ -70,20 +116,20 @@ for (var countryCounter = 0; countryCounter < countries.length; countryCounter++
 
     var yearPositionY = onlineGraph ? 320 : 23; // top: 23 - bottom: 320
 
-    app.activeDocument.layerSets.getByName("legend online").visible = onlineGraph;
+    app.activeDocument.layerSets.getByName('legend online').visible = onlineGraph;
 
     var axisPosition2015 = yearPosition2015;
-    positionLayerCenter("xAxis2015Line", axisPosition2015, 165);
-    positionLayerCenter("xAxis2015Text", axisPosition2015, yearPositionY);
+    positionLayerCenter('xAxis2015Line', axisPosition2015, 165);
+    positionLayerCenter('xAxis2015Text', axisPosition2015, yearPositionY);
     var axisPosition2010 = yearPosition2015 - (yearPosition2015 - yearPosition2000) * (2015 - (2010)) / (2015 - 2000);
-    positionLayerCenter("xAxis2010Line", axisPosition2010, 165);
-    positionLayerCenter("xAxis2010Text", axisPosition2010, yearPositionY);
+    positionLayerCenter('xAxis2010Line', axisPosition2010, 165);
+    positionLayerCenter('xAxis2010Text', axisPosition2010, yearPositionY);
     var axisPosition2005 = yearPosition2015 - (yearPosition2015 - yearPosition2000) * (2015 - (2005)) / (2015 - 2000);
-    positionLayerCenter("xAxis2005Line", axisPosition2005, 165);
-    positionLayerCenter("xAxis2005Text", axisPosition2005, yearPositionY);
+    positionLayerCenter('xAxis2005Line', axisPosition2005, 165);
+    positionLayerCenter('xAxis2005Text', axisPosition2005, yearPositionY);
     var axisPosition2000 = yearPosition2015 - (yearPosition2015 - yearPosition2000) * (2015 - (2000)) / (2015 - 2000);
-    positionLayerCenter("xAxis2000Text", axisPosition2000, yearPositionY);
-    app.activeDocument.artLayers.getByName("xAxis2000Text").visible = onlineGraph;
+    positionLayerCenter('xAxis2000Text', axisPosition2000, yearPositionY);
+    app.activeDocument.artLayers.getByName('xAxis2000Text').visible = onlineGraph;
 
 
     var lowestNumberInGraph = 10000;
@@ -105,34 +151,34 @@ for (var countryCounter = 0; countryCounter < countries.length; countryCounter++
       yPositionForGraph = graphDimensionY - (lowestNumberInGraph - excelLineArray[i]) / (lowestNumberInGraph - highestNumberInGraph) * (graphDimensionY - (20 + graphPaddingTop));
       myLineArray[i] = [xPositionForGraph, yPositionForGraph];
     }
-    selectLayer("maxLossBox");
-    var lineName = "expReturnCurve";
+    selectLayer('maxLossBox');
+    var lineName = 'expReturnCurve';
     DrawLine_v2(myLineArray);
 
 
 
     // Change values
-    app.activeDocument.layers.getByName("maxLossText").textItem.contents = Math.round(maxLoss) + "%";
-    app.activeDocument.layers.getByName("maxReturnText").textItem.contents = Math.round(maxReturn) + "%";
+    app.activeDocument.layers.getByName('maxLossText').textItem.contents = Math.round(maxLoss) + '%';
+    app.activeDocument.layers.getByName('maxReturnText').textItem.contents = Math.round(maxReturn) + '%';
 
     // Position box and text
-    positionLayerCenter("maxLossBox", maxLossPosition + 15, 188);
-    positionLayerCenter("maxLossBoxPB", maxLossPosition + 15, 188);
-    positionLayerCenter("maxLossText", maxLossPosition + 15, 58);
-    positionLayerCenter("maxReturnBox", maxReturnPosition + 15, 188);
-    positionLayerCenter("maxReturnBoxPB", maxReturnPosition + 15, 188);
-    positionLayerCenter("maxReturnText", maxReturnPosition + 15, 58);
+    positionLayerCenter('maxLossBox', maxLossPosition + 15, 188);
+    positionLayerCenter('maxLossBoxPB', maxLossPosition + 15, 188);
+    positionLayerCenter('maxLossText', maxLossPosition + 15, 58);
+    positionLayerCenter('maxReturnBox', maxReturnPosition + 15, 188);
+    positionLayerCenter('maxReturnBoxPB', maxReturnPosition + 15, 188);
+    positionLayerCenter('maxReturnText', maxReturnPosition + 15, 58);
 
-      app.activeDocument.artLayers.getByName("expReturnCurveMax").visible = onlineGraph;
-      app.activeDocument.artLayers.getByName("expReturnCurveMin").visible = onlineGraph;
-      app.activeDocument.artLayers.getByName("maxLossText").visible = !onlineGraph;
-      app.activeDocument.artLayers.getByName("maxReturnBox").visible = !onlineGraph;
-      app.activeDocument.artLayers.getByName("maxReturnText").visible = !onlineGraph;
+      app.activeDocument.artLayers.getByName('expReturnCurveMax').visible = onlineGraph;
+      app.activeDocument.artLayers.getByName('expReturnCurveMin').visible = onlineGraph;
+      app.activeDocument.artLayers.getByName('maxLossText').visible = !onlineGraph;
+      app.activeDocument.artLayers.getByName('maxReturnBox').visible = !onlineGraph;
+      app.activeDocument.artLayers.getByName('maxReturnText').visible = !onlineGraph;
 
-    app.activeDocument.artLayers.getByName("maxLossBox").visible = !privateBanking && !onlineGraph;
-    app.activeDocument.artLayers.getByName("maxLossBoxPB").visible = privateBanking && !onlineGraph;
-    app.activeDocument.artLayers.getByName("maxReturnBox").visible = !privateBanking && !onlineGraph;
-    app.activeDocument.artLayers.getByName("maxReturnBoxPB").visible = privateBanking && !onlineGraph;
+    app.activeDocument.artLayers.getByName('maxLossBox').visible = !privateBanking && !onlineGraph;
+    app.activeDocument.artLayers.getByName('maxLossBoxPB').visible = privateBanking && !onlineGraph;
+    app.activeDocument.artLayers.getByName('maxReturnBox').visible = !privateBanking && !onlineGraph;
+    app.activeDocument.artLayers.getByName('maxReturnBoxPB').visible = privateBanking && !onlineGraph;
 
       if (onlineGraph) {
           deleteLayer('expReturnCurveMax');
@@ -152,9 +198,6 @@ for (var countryCounter = 0; countryCounter < countries.length; countryCounter++
           pasteLayerStyle('expReturnCurveMin');
       }
 
-    var imgLocale = [];
-
-
     var locales = {
       'DK': ['da', 'en'],
       'SE': ['sv', 'en'],
@@ -163,116 +206,19 @@ for (var countryCounter = 0; countryCounter < countries.length; countryCounter++
     };
 
 
-    switch (imgCountry) {
-      case 'DK':
-        imgLocale.push('da');
-        break;
-      case 'SE':
-        imgLocale.push('sv');
-        break;
-      case 'NO':
-        imgLocale.push('no');
-        break;
-      case 'FI':
-        imgLocale.push('fi');
-        imgLocale.push('sv');
-        break;
-    }
-    imgLocale.push('en');
-
-    var graphType = graphs[graphsCounter]
     if(!privateBanking && graphType == 'eo') {
-      graphType = 'rf_plus'
+      graphType = 'rf_plus';
     }
 
-/*
-    locales[imgCountry].forEach(function(l){
-      saveAsPng(destinationFolder + '/' + countries[countryCounter],
-          'RB_histdev_s_' + graphType + '_' + l + countries[countryCounter] + '.png',
-          alsoSaveLargeGraphs);
-    });
-*/
-    for(i=0;i<locales[countries[countryCounter]].length;i++){
-      alert(locales[i])
-    }
-    exit;
-
-
-    for (var i = 0; i < imgLocale.length; i++) {
-      saveAsPng(destinationFolder + '/' + countries[countryCounter],
-          'RB_histdev_s_' + graphType + '_' + imgLocale[i] + countries[countryCounter] + '.png',
-          alsoSaveLargeGraphs);
+    for (i = 0; i < locales[imgCountry].length; i++) {
+      var folderName = destinationFolder + '/' + subDestinationFolder + '/' + countries[countryCounter];
+      var fileName = 'RB_histdev_s_' + graphType + '_' + locales[imgCountry][i] + countries[countryCounter] + '.png';
+      saveAsPng(folderName, fileName, alsoSaveLargeGraphs);
     }
 
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-function savePictureOLD(saveFile) {
-  var pngOpts = new ExportOptionsSaveForWeb;
-  pngOpts.format = SaveDocumentType.PNG
-  pngOpts.PNG8 = false;
-  pngOpts.transparency = true;
-  pngOpts.interlaced = false;
-  pngOpts.quality = 100;
-  activeDocument.exportDocument(saveFile, ExportType.SAVEFORWEB, pngOpts);
-}
-
-function savePicture(saveFile) {
-  saveFile = File(saveFile);
-  if (saveFile.exists) {
-    saveFile.remove()
-  }
-
-  pngOpts = new PNGSaveOptions();
-  pngOpts.embedColorProfile = true
-  pngOpts.formatOptions = FormatOptions.STANDARDBASELINE
-  pngOpts.matte = MatteType.NONE
-  pngOpts.quality = 1
-  activeDocument.saveAs(saveFile, pngOpts, true, Extension.LOWERCASE)
-}
-
-
-function positionLayerTopRight(lyr, x, y) {// layerObject, Number, Number
-  var lyr1 = app.activeDocument.layers.getByName(lyr);
-  // if can not move layer return
-  if (lyr1.iisBackgroundLayer || lyr.positionLocked) return
-  // get the layer bounds
-  var layerBounds = lyr1.bounds;
-  // get top left position
-  var layerX = layerBounds[2].value;
-  var layerY = layerBounds[1].value;
-  // the difference between where layer needs to be and is now
-  var deltaX = x - layerX;
-  var deltaY = y - layerY;
-  // move the layer into position
-  lyr1.translate(deltaX, deltaY);
-}
-
-function resizeLayer(layerName, Width, Height) {
-  if (!documents.length) return;
-  if (activeDocument.activeLayer.isBackgroundLayer) return;
-  var startRulerUnits = preferences.rulerUnits;
-  preferences.rulerUnits = Units.PIXELS;
-  var LB = activeDocument.artLayers.getByName(layerName).bounds;
-  var lWidth = 100 / (LB[2].value - LB[0].value);
-  var lHeight = 100 / (LB[3].value - LB[1].value);
-  var NewWidth = lWidth * Width;
-  var NewHeight = lHeight * Height;
-  activeDocument.artLayers.getByName(layerName).resize(Number(NewWidth), Number(NewHeight), AnchorPosition.BOTTOMRIGHT);
-  app.preferences.rulerUnits = startRulerUnits;
-}
 
 function calculateYAxisPixels(valueInPercent) {
   return highestYPixels + (highestValueInPercent - valueInPercent) / (highestValueInPercent - lowestValueInPercent) * (lowestYPixels - highestYPixels);
@@ -313,30 +259,30 @@ function DrawLine_v2(myLineArray) {
   lineSubPathArray.entireSubPath = lineArray;
   var myPathItem = doc.pathItems.add(lineName, [lineSubPathArray]);
 
-  makeLayer(lineName + "Temp");
+  makeLayer(lineName + 'Temp');
 
   // Select myPath path
-  var idslct = charIDToTypeID("slct");
+  var idslct = charIDToTypeID('slct');
   var desc6 = new ActionDescriptor();
-  var idnull = charIDToTypeID("null");
+  var idnull = charIDToTypeID('null');
   var ref3 = new ActionReference();
-  var idPath = charIDToTypeID("Path");
+  var idPath = charIDToTypeID('Path');
   ref3.putName(idPath, lineName);
   desc6.putReference(idnull, ref3);
   executeAction(idslct, desc6, DialogModes.NO);
 
   // Turn path to line
-  var idStrk = charIDToTypeID("Strk");
+  var idStrk = charIDToTypeID('Strk');
   var desc7 = new ActionDescriptor();
-  var idnull = charIDToTypeID("null");
+  var idnull = charIDToTypeID('null');
   var ref4 = new ActionReference();
-  var idPath = charIDToTypeID("Path");
-  var idOrdn = charIDToTypeID("Ordn");
-  var idTrgt = charIDToTypeID("Trgt");
+  var idPath = charIDToTypeID('Path');
+  var idOrdn = charIDToTypeID('Ordn');
+  var idTrgt = charIDToTypeID('Trgt');
   ref4.putEnumerated(idPath, idOrdn, idTrgt);
   desc7.putReference(idnull, ref4);
-  var idUsng = charIDToTypeID("Usng");
-  var idPcTl = charIDToTypeID("PcTl");
+  var idUsng = charIDToTypeID('Usng');
+  var idPcTl = charIDToTypeID('PcTl');
   desc7.putClass(idUsng, idPcTl);
   executeAction(idStrk, desc7, DialogModes.NO);
 
@@ -344,109 +290,109 @@ function DrawLine_v2(myLineArray) {
   myPathItem.remove();
 
   copyLayerStyle(lineName);
-  pasteLayerStyle(lineName + "Temp");
+  pasteLayerStyle(lineName + 'Temp');
   deleteLayer(lineName);
-  renameLayer(lineName + "Temp", lineName);
+  renameLayer(lineName + 'Temp', lineName);
 }
 
 function selectLayer(layerName) {
   // Select layer
-  var idslct = charIDToTypeID("slct");
+  var idslct = charIDToTypeID('slct');
   var desc36 = new ActionDescriptor();
-  var idnull = charIDToTypeID("null");
+  var idnull = charIDToTypeID('null');
   var ref26 = new ActionReference();
-  var idLyr = charIDToTypeID("Lyr ");
+  var idLyr = charIDToTypeID('Lyr ');
   ref26.putName(idLyr, layerName);
   desc36.putReference(idnull, ref26);
-  var idMkVs = charIDToTypeID("MkVs");
+  var idMkVs = charIDToTypeID('MkVs');
   desc36.putBoolean(idMkVs, false);
   executeAction(idslct, desc36, DialogModes.NO);
 }
 
 function pasteLayerStyle(layerName) {
   // Select layer
-  var idslct = charIDToTypeID("slct");
+  var idslct = charIDToTypeID('slct');
   var desc36 = new ActionDescriptor();
-  var idnull = charIDToTypeID("null");
+  var idnull = charIDToTypeID('null');
   var ref26 = new ActionReference();
-  var idLyr = charIDToTypeID("Lyr ");
+  var idLyr = charIDToTypeID('Lyr ');
   ref26.putName(idLyr, layerName);
   desc36.putReference(idnull, ref26);
-  var idMkVs = charIDToTypeID("MkVs");
+  var idMkVs = charIDToTypeID('MkVs');
   desc36.putBoolean(idMkVs, false);
   executeAction(idslct, desc36, DialogModes.NO);
   // Paste layer style
-  var idPaFX = charIDToTypeID("PaFX");
+  var idPaFX = charIDToTypeID('PaFX');
   var desc37 = new ActionDescriptor();
   executeAction(idPaFX, desc37, DialogModes.NO);
 }
 
 function copyLayerStyle(layerName) {
   // Select layer
-  var idslct = charIDToTypeID("slct");
+  var idslct = charIDToTypeID('slct');
   var desc35 = new ActionDescriptor();
-  var idnull = charIDToTypeID("null");
+  var idnull = charIDToTypeID('null');
   var ref25 = new ActionReference();
-  var idLyr = charIDToTypeID("Lyr ");
+  var idLyr = charIDToTypeID('Lyr ');
   ref25.putName(idLyr, layerName);
   desc35.putReference(idnull, ref25);
-  var idMkVs = charIDToTypeID("MkVs");
+  var idMkVs = charIDToTypeID('MkVs');
   desc35.putBoolean(idMkVs, false);
   executeAction(idslct, desc35, DialogModes.NO);
   // Copy layer style
-  var idCpFX = charIDToTypeID("CpFX");
+  var idCpFX = charIDToTypeID('CpFX');
   executeAction(idCpFX, undefined, DialogModes.NO);
 }
 
 function makeLayer(layerName) {
   // Make a new layer
-  var idMk = charIDToTypeID("Mk  ");
+  var idMk = charIDToTypeID('Mk  ');
   var desc3 = new ActionDescriptor();
-  var idnull = charIDToTypeID("null");
+  var idnull = charIDToTypeID('null');
   var ref1 = new ActionReference();
-  var idLyr = charIDToTypeID("Lyr ");
+  var idLyr = charIDToTypeID('Lyr ');
   ref1.putClass(idLyr);
   desc3.putReference(idnull, ref1);
   executeAction(idMk, desc3, DialogModes.NO);
   // Rename layer
-  var idsetd = charIDToTypeID("setd");
+  var idsetd = charIDToTypeID('setd');
   var desc4 = new ActionDescriptor();
-  var idnull = charIDToTypeID("null");
+  var idnull = charIDToTypeID('null');
   var ref2 = new ActionReference();
-  var idLyr = charIDToTypeID("Lyr ");
-  var idOrdn = charIDToTypeID("Ordn");
-  var idTrgt = charIDToTypeID("Trgt");
+  var idLyr = charIDToTypeID('Lyr ');
+  var idOrdn = charIDToTypeID('Ordn');
+  var idTrgt = charIDToTypeID('Trgt');
   ref2.putEnumerated(idLyr, idOrdn, idTrgt);
   desc4.putReference(idnull, ref2);
-  var idT = charIDToTypeID("T   ");
+  var idT = charIDToTypeID('T   ');
   var desc5 = new ActionDescriptor();
-  var idNm = charIDToTypeID("Nm  ");
+  var idNm = charIDToTypeID('Nm  ');
   desc5.putString(idNm, layerName);
-  var idLyr = charIDToTypeID("Lyr ");
+  var idLyr = charIDToTypeID('Lyr ');
   desc4.putObject(idT, idLyr, desc5);
   executeAction(idsetd, desc4, DialogModes.NO);
 }
 
 function deleteLayer(name) {
   // Select Layer
-  var idslct = charIDToTypeID("slct");
+  var idslct = charIDToTypeID('slct');
   var desc38 = new ActionDescriptor();
-  var idnull = charIDToTypeID("null");
+  var idnull = charIDToTypeID('null');
   var ref27 = new ActionReference();
-  var idLyr = charIDToTypeID("Lyr ");
+  var idLyr = charIDToTypeID('Lyr ');
   ref27.putName(idLyr, name);
   desc38.putReference(idnull, ref27);
-  var idMkVs = charIDToTypeID("MkVs");
+  var idMkVs = charIDToTypeID('MkVs');
   desc38.putBoolean(idMkVs, false);
   executeAction(idslct, desc38, DialogModes.NO);
   // Delete Layer
-  var idDlt = charIDToTypeID("Dlt ");
+  var idDlt = charIDToTypeID('Dlt ');
   var desc39 = new ActionDescriptor();
-  var idnull = charIDToTypeID("null");
+  var idnull = charIDToTypeID('null');
   var ref28 = new ActionReference();
-  var idLyr = charIDToTypeID("Lyr ");
-  var idOrdn = charIDToTypeID("Ordn");
-  var idTrgt = charIDToTypeID("Trgt");
+  var idLyr = charIDToTypeID('Lyr ');
+  var idOrdn = charIDToTypeID('Ordn');
+  var idTrgt = charIDToTypeID('Trgt');
   ref28.putEnumerated(idLyr, idOrdn, idTrgt);
   desc39.putReference(idnull, ref28);
   executeAction(idDlt, desc39, DialogModes.NO);
@@ -454,58 +400,58 @@ function deleteLayer(name) {
 
 function renameLayer(oldName, newName) {
   // Select Layer
-  var idslct = charIDToTypeID("slct");
+  var idslct = charIDToTypeID('slct');
   var desc40 = new ActionDescriptor();
-  var idnull = charIDToTypeID("null");
+  var idnull = charIDToTypeID('null');
   var ref29 = new ActionReference();
-  var idLyr = charIDToTypeID("Lyr ");
+  var idLyr = charIDToTypeID('Lyr ');
   ref29.putName(idLyr, oldName);
   desc40.putReference(idnull, ref29);
-  var idMkVs = charIDToTypeID("MkVs");
+  var idMkVs = charIDToTypeID('MkVs');
   desc40.putBoolean(idMkVs, false);
   executeAction(idslct, desc40, DialogModes.NO);
   // Rename layer
-  var idsetd = charIDToTypeID("setd");
+  var idsetd = charIDToTypeID('setd');
   var desc41 = new ActionDescriptor();
-  var idnull = charIDToTypeID("null");
+  var idnull = charIDToTypeID('null');
   var ref30 = new ActionReference();
-  var idLyr = charIDToTypeID("Lyr ");
-  var idOrdn = charIDToTypeID("Ordn");
-  var idTrgt = charIDToTypeID("Trgt");
+  var idLyr = charIDToTypeID('Lyr ');
+  var idOrdn = charIDToTypeID('Ordn');
+  var idTrgt = charIDToTypeID('Trgt');
   ref30.putEnumerated(idLyr, idOrdn, idTrgt);
   desc41.putReference(idnull, ref30);
-  var idT = charIDToTypeID("T   ");
+  var idT = charIDToTypeID('T   ');
   var desc42 = new ActionDescriptor();
-  var idNm = charIDToTypeID("Nm  ");
+  var idNm = charIDToTypeID('Nm  ');
   desc42.putString(idNm, newName);
-  var idLyr = charIDToTypeID("Lyr ");
+  var idLyr = charIDToTypeID('Lyr ');
   desc41.putObject(idT, idLyr, desc42);
   executeAction(idsetd, desc41, DialogModes.NO);
 }
 
 function duplicateLayer(layerName, newLayerName) {
-  var idslct = charIDToTypeID("slct");
+  var idslct = charIDToTypeID('slct');
   var desc53 = new ActionDescriptor();
-  var idnull = charIDToTypeID("null");
+  var idnull = charIDToTypeID('null');
   var ref40 = new ActionReference();
-  var idLyr = charIDToTypeID("Lyr ");
+  var idLyr = charIDToTypeID('Lyr ');
   ref40.putName(idLyr, layerName);
   desc53.putReference(idnull, ref40);
-  var idMkVs = charIDToTypeID("MkVs");
+  var idMkVs = charIDToTypeID('MkVs');
   desc53.putBoolean(idMkVs, false);
   executeAction(idslct, desc53, DialogModes.NO);
-  var idDplc = charIDToTypeID("Dplc");
+  var idDplc = charIDToTypeID('Dplc');
   var desc54 = new ActionDescriptor();
-  var idnull = charIDToTypeID("null");
+  var idnull = charIDToTypeID('null');
   var ref41 = new ActionReference();
-  var idLyr = charIDToTypeID("Lyr ");
-  var idOrdn = charIDToTypeID("Ordn");
-  var idTrgt = charIDToTypeID("Trgt");
+  var idLyr = charIDToTypeID('Lyr ');
+  var idOrdn = charIDToTypeID('Ordn');
+  var idTrgt = charIDToTypeID('Trgt');
   ref41.putEnumerated(idLyr, idOrdn, idTrgt);
   desc54.putReference(idnull, ref41);
-  var idNm = charIDToTypeID("Nm  ");
+  var idNm = charIDToTypeID('Nm  ');
   desc54.putString(idNm, newLayerName);
-  var idVrsn = charIDToTypeID("Vrsn");
+  var idVrsn = charIDToTypeID('Vrsn');
   desc54.putInteger(idVrsn, 5);
   executeAction(idDplc, desc54, DialogModes.NO);
 }

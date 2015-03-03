@@ -1,1 +1,1 @@
-var destinationFolder = "C:\\graphs\\2015\\private-banking\\";
+var destinationFolder = "C:/graphs/temp/2015";
