@@ -1,0 +1,16 @@
+#include "functions/set-foreground-color.jsx";
+#include "functions/make-selection.jsx";
+#include "functions/gradient-selection.jsx";
+#include "functions/select-none.jsx";
+#include "functions/select-layer.jsx";
+#include "functions/save-as-png.jsx";
+#include "functions/draw-line.jsx";
+#include "functions/get-layer.jsx";
+#include "functions/make-layer.jsx";
+#include "functions/gradient-loop.jsx";
+#include "functions/copy-paste-layer-style.jsx";
+#include "functions/position-layer-center.jsx";
+#include "functions/delete-layer.jsx";
+#include "functions/rename-layer.jsx";
+#include "functions/duplicate-layer.jsx";
+#include 'functions/select-mask-inverse-delete.jsx';

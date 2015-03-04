@@ -1,22 +1,10 @@
-﻿// Adjust now
-var alsoSaveLargeGraphs = true;
+﻿
 
-// Add data
-#include 'values/2015/private-banking/se/historical-development.jsx';
-#include 'values/2015/retail-banking/se/historical-development.jsx';
+// Run from setup-and-run.jsx
 
 
 
 // Watch the magic happen
-
-#include 'destination-folder.jsx';
-#include 'functions/save-as-png.jsx';
-#include 'functions/select-mask-inverse-delete.jsx';
-#include 'functions/duplicate-layer.jsx';
-#include 'functions/select-none.jsx';
-#include 'functions/select-layer.jsx';
-#include 'functions/copy-paste-layer-style.jsx';
-
 var countryData = {};
 countryData['private-banking'] = {};
 countryData['retail-banking'] = {};
@@ -162,6 +150,7 @@ for (var bankType in countryData) {
         for (i = 0; i < locales[country].length; i++) {
           var folderName = destinationFolder + '/' + country + '/' + bankType;
           var fileName = 'RB_histdev_s_' + saveDataTypeAs + '_' + locales[country][i] + country + '.png';
+  exit;
           saveAsPng(folderName, fileName, alsoSaveLargeGraphs);
         }
       }

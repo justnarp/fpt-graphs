@@ -11,22 +11,7 @@ if(privateBanking){
 }
 
 #include "destination-folder.jsx";
-#include "functions/set-foreground-color.jsx";
-#include "functions/make-selection.jsx";
-#include "functions/gradient-selection.jsx";
-#include "functions/select-none.jsx";
-#include "functions/select-layer.jsx";
-#include "functions/save-as-png.jsx";
-#include "functions/draw-line.jsx";
-#include "functions/get-layer.jsx";
-#include "functions/make-layer.jsx";
-#include "functions/gradient-loop.jsx";
-#include "functions/copy-paste-layer-style.jsx";
-#include "functions/position-layer-center.jsx";
-#include "functions/delete-layer.jsx";
-#include "functions/rename-layer.jsx";
-#include "functions/duplicate-layer.jsx";
-//#include "values/2014/min-exp-max-return.jsx";
+#include "functions/functions.jsx";
 
 
 for (var countryCounter = 0; countryCounter < countries.length; countryCounter++) {
@@ -227,7 +212,6 @@ for (var countryCounter = 0; countryCounter < countries.length; countryCounter++
             positionLayerCenter("xAxis6YearText", xAxisPos[5] - 2, 23);
             positionLayerCenter("xAxis10YearText", xAxisPos[9] - 2, 23);
             positionLayerCenter("xAxis20YearText", xAxisPos[19] - 2, 23);
-
             saveAsPng(destinationFolder + '/' + countries[countryCounter] + '/' + bankType,
                 'RB_capdevl_l_' + graphs[graphsCounter] + '_' + imgLocale[i] + countries[countryCounter] + '.png',
                 alsoSaveLargeGraphs);
