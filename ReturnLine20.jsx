@@ -4,8 +4,10 @@ var graphs = new Array("con", "mod", "bal", "gro", "rf", "rf_plus");
 var alsoSaveLargeGraphs = true;
 var privateBanking = true;
 
+var bankType = privateBanking ? 'private-banking' : 'retail-banking';
+
 if(privateBanking){
-  graphs = new Array("eo", "fio", "con", "mod", "bal", "gro", "rf");
+  graphs = new Array("con", "mod", "bal", "gro", "rf", "eo", "fio");
 }
 
 #include "destination-folder.jsx";
@@ -31,11 +33,14 @@ for (var countryCounter = 0; countryCounter < countries.length; countryCounter++
 
   var imgCountry = countries[countryCounter];
 
+  var graphsLength = graphs.length;
+
     // don't make rf_plus for anyone but norway
-    var graphsLength = graphs.length - (imgCountry == "NO" ? 0 : 1);
+  if(!privateBanking){
+    graphsLength = graphsLength - (imgCountry == "NO" ? 0 : 1);
+  }
 
     for (var graphsCounter = 0; graphsCounter < graphsLength; graphsCounter++) {
-
       var graph = graphs[graphsCounter];
     //#include "values/2015/retail-banking/se/min-exp-max-returns.jsx";
     #include "values/2015/private-banking/se/min-exp-max-returns.jsx";
@@ -223,7 +228,7 @@ for (var countryCounter = 0; countryCounter < countries.length; countryCounter++
             positionLayerCenter("xAxis10YearText", xAxisPos[9] - 2, 23);
             positionLayerCenter("xAxis20YearText", xAxisPos[19] - 2, 23);
 
-            saveAsPng(destinationFolder + '/' + countries[countryCounter],
+            saveAsPng(destinationFolder + '/' + countries[countryCounter] + '/' + bankType,
                 'RB_capdevl_l_' + graphs[graphsCounter] + '_' + imgLocale[i] + countries[countryCounter] + '.png',
                 alsoSaveLargeGraphs);
 
