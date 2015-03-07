@@ -1,8 +1,5 @@
 ﻿
-
 // Run from setup-and-run.jsx
-
-
 
 // Watch the magic happen
 var countryData = {};
@@ -30,8 +27,10 @@ for (var bankType in countryData) {
 
       var doTheGraphs = true;
       var saveDataTypeAs = dataType;
+      var saveBankTypePrefix = 'PB';
       var onlineGraphs = false;
       if (bankType == 'retail-banking') {
+        saveBankTypePrefix = 'RB';
         // retail-banking should only save 'eo' for norway, and it should be saved as 'rf_plus'
         if (dataType == 'eo') {
           if (country == 'NO') {
@@ -63,13 +62,13 @@ for (var bankType in countryData) {
         app.activeDocument.layerSets.getByName('legend online').visible = onlineGraphs;
 
         var axisPosition2015 = yearPosition2015;
-        positionLayerCenter('xAxis2015Line', axisPosition2015, 165);
+        positionLayerCenter('xAxis2015Line', axisPosition2015, 170);
         positionLayerCenter('xAxis2015Text', axisPosition2015, yearPositionY);
         var axisPosition2010 = yearPosition2015 - (yearPosition2015 - yearPosition2000) * (2015 - (2010)) / (2015 - 2000);
-        positionLayerCenter('xAxis2010Line', axisPosition2010, 165);
+        positionLayerCenter('xAxis2010Line', axisPosition2010, 170);
         positionLayerCenter('xAxis2010Text', axisPosition2010, yearPositionY);
         var axisPosition2005 = yearPosition2015 - (yearPosition2015 - yearPosition2000) * (2015 - (2005)) / (2015 - 2000);
-        positionLayerCenter('xAxis2005Line', axisPosition2005, 165);
+        positionLayerCenter('xAxis2005Line', axisPosition2005, 170);
         positionLayerCenter('xAxis2005Text', axisPosition2005, yearPositionY);
         var axisPosition2000 = yearPosition2015 - (yearPosition2015 - yearPosition2000) * (2015 - (2000)) / (2015 - 2000);
         positionLayerCenter('xAxis2000Text', axisPosition2000, yearPositionY);
@@ -149,9 +148,8 @@ for (var bankType in countryData) {
 
         for (i = 0; i < locales[country].length; i++) {
           var folderName = destinationFolder + '/' + country + '/' + bankType;
-          var fileName = 'RB_histdev_s_' + saveDataTypeAs + '_' + locales[country][i] + country + '.png';
-  exit;
-          saveAsPng(folderName, fileName, alsoSaveLargeGraphs);
+          var fileName = saveBankTypePrefix + '_histdev_s_' + saveDataTypeAs + '_' + locales[country][i] + country;
+          saveAsPng(folderName, fileName);
         }
       }
     }
