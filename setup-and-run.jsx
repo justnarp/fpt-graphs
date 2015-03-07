@@ -14,7 +14,7 @@ var destinationFolder = "/Users/MLP/Repos/graphs";
 //#include 'scripts/ReturnLine20.jsx';
 //#include 'scripts/ReturnLine.jsx';
 //#include 'scripts/capdevb_s.jsx';
-#include 'scripts/ReturnTable20.jsx';
+#include 'scripts/capdevb_l.jsx';
 
 // Needed functions (leave as is)
 #include 'functions/functions.jsx';
