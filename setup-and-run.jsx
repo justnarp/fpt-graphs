@@ -13,7 +13,7 @@ var destinationFolder = "/Users/MLP/Repos/graphs";
 //#include 'scripts/histdev_s.jsx';
 //#include 'scripts/ReturnLine20.jsx';
 //#include 'scripts/ReturnLine.jsx';
-//#include 'scripts/ReturnTable.jsx';
+//#include 'scripts/capdevb_s.jsx';
 #include 'scripts/ReturnTable20.jsx';
 
 // Needed functions (leave as is)
