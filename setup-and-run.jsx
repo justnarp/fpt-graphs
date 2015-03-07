@@ -4,8 +4,8 @@
 var destinationFolder = "/Users/MLP/Repos/graphs";
 
 // Data
-#include 'values/2015/private-banking/se/historical-development.jsx';
-#include 'values/2015/retail-banking/se/historical-development.jsx';
+#include 'values/2015/private-banking/se/histdev.jsx';
+#include 'values/2015/retail-banking/se/histdev.jsx';
 #include 'values/2015/private-banking/se/min-exp-max-returns.jsx';
 #include 'values/2015/retail-banking/se/min-exp-max-returns.jsx';
 
