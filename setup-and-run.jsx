@@ -10,7 +10,7 @@ var destinationFolder = "/Users/MLP/Repos/graphs";
 #include 'values/2015/retail-banking/se/min-exp-max-returns.jsx';
 
 // Choose what to run (the PSD that is open in Photoshop)
-//#include 'scripts/HistoricalDevelopment.jsx';
+//#include 'scripts/histdev_s.jsx';
 //#include 'scripts/ReturnLine20.jsx';
 //#include 'scripts/ReturnLine.jsx';
 //#include 'scripts/ReturnTable.jsx';
