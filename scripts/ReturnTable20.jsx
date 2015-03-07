@@ -175,7 +175,7 @@ for (var bankType in countryData) {
           }
 
           var folderName = destinationFolder + '/' + country + '/' + bankType;
-          var fileName = saveBankTypePrefix + '_capdevb_s_' + saveDataTypeAs + '_' + locales[country][i] + country;
+          var fileName = saveBankTypePrefix + '_capdevb_l_' + saveDataTypeAs + '_' + locales[country][i] + country;
           saveAsPng(folderName, fileName);
         }
 
