@@ -11,7 +11,7 @@ var destinationFolder = "/Users/MLP/Repos/graphs";
 
 // Choose what to run (the PSD that is open in Photoshop)
 //#include 'scripts/histdev_s.jsx';
-//#include 'scripts/ReturnLine20.jsx';
+//#include 'scripts/capdevl_l.jsx';
 //#include 'scripts/capdevl_s.jsx';
 //#include 'scripts/capdevb_s.jsx';
 #include 'scripts/capdevb_l.jsx';
