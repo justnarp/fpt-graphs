@@ -208,6 +208,8 @@ function DrawLine_v2(myLineArray) {
   desc6.putReference(idnull, ref3);
   executeAction(idslct, desc6, DialogModes.NO);
 
+  //activeDocument.resizeImage(1500, 1100);
+
   // Turn path to line
   var idStrk = charIDToTypeID('Strk');
   var desc7 = new ActionDescriptor();
@@ -222,6 +224,8 @@ function DrawLine_v2(myLineArray) {
   var idPcTl = charIDToTypeID('PcTl');
   desc7.putClass(idUsng, idPcTl);
   executeAction(idStrk, desc7, DialogModes.NO);
+
+  //activeDocument.resizeImage(450, 330);
 
   // remove line
   myPathItem.remove();
