@@ -5,6 +5,7 @@
 #include "functions/select-layer.jsx";
 #include "functions/save-as-png.jsx";
 #include "functions/draw-line.jsx";
+#include "functions/draw-path.jsx";
 #include "functions/get-layer.jsx";
 #include "functions/make-layer.jsx";
 #include "functions/gradient-loop.jsx";
