@@ -5,9 +5,9 @@ var destinationFolder = "/Users/MLP/Repos/graphs";
 
 // Data
 #include 'values/2015/private-banking/se/histdev.jsx';
+#include 'values/2015/private-banking/se/capdev.jsx';
 #include 'values/2015/retail-banking/se/histdev.jsx';
-#include 'values/2015/private-banking/se/min-exp-max-returns.jsx';
-#include 'values/2015/retail-banking/se/min-exp-max-returns.jsx';
+#include 'values/2015/retail-banking/se/capdev.jsx';
 
 // Choose what to run (the PSD that is open in Photoshop)
 //#include 'scripts/histdev_s.jsx';
