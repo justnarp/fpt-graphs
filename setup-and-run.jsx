@@ -1,7 +1,7 @@
 
 // Where to put the graphs
-//var destinationFolder = "C:/graphs/2015/v4/delete";
-var destinationFolder = "/Users/MLP/Repos/graphs";
+var destinationFolder = "C:/graphs/2015/v5";
+//var destinationFolder = "/Users/MLP/Repos/graphs";
 
 // Data
 #include 'values/2015/private-banking/se/histdev.jsx';
