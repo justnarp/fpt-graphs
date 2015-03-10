@@ -6,9 +6,11 @@ var countryData = {};
 countryData['private-banking'] = {};
 countryData['retail-banking'] = {};
 if(typeof dataPBSE != 'undefined')countryData['private-banking']['SE'] = dataPBSE;
-if(typeof dataPBNO != 'undefined')countryData['private-banking']['NO'] = dataPBNO;
 if(typeof dataRBSE != 'undefined')countryData['retail-banking']['SE'] = dataRBSE;
 if(typeof dataRBSE != 'undefined')countryData['retail-banking']['SEonline'] = dataRBSE;
+if(typeof dataRBFI != 'undefined')countryData['retail-banking']['FI'] = dataRBFI;
+if(typeof dataRBDK != 'undefined')countryData['retail-banking']['DK'] = dataRBDK;
+if(typeof dataRBNO != 'undefined')countryData['retail-banking']['NO'] = dataRBNO;
 
 // Graph dimensions
 var graphDimensionX = 400,

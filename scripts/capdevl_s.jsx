@@ -6,8 +6,10 @@ var countryData = {};
 countryData['private-banking'] = {};
 countryData['retail-banking'] = {};
 if(typeof dataMinExpMaxPBSE != 'undefined')countryData['private-banking']['SE'] = dataMinExpMaxPBSE;
-if(typeof dataMinExpMaxPBNO != 'undefined')countryData['private-banking']['NO'] = dataMinExpMaxPBNO;
 if(typeof dataMinExpMaxRBSE != 'undefined')countryData['retail-banking']['SE'] = dataMinExpMaxRBSE;
+if(typeof dataMinExpMaxRBFI != 'undefined')countryData['retail-banking']['FI'] = dataMinExpMaxRBFI;
+if (typeof dataMinExpMaxRBDK != 'undefined')countryData['retail-banking']['DK'] = dataMinExpMaxRBDK;
+if (typeof dataMinExpMaxRBNO != 'undefined')countryData['retail-banking']['NO'] = dataMinExpMaxRBNO;
 
 // Graph dimensions
 var graphDimensionX = 400;
