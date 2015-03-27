@@ -40,7 +40,7 @@ function saveAsPng(dir, file) {
       activeDocument.resizeImage(1500, 1100);
     }
 
-    var saveFile = File(dir + '/' + fileName + '.png');
+    var saveFile = File(dir + '/' + fileName + '_test.png');
     if (saveFile.exists) saveFile.remove();
     activeDocument.saveAs(saveFile, pngOpts, true, Extension.LOWERCASE);
 
