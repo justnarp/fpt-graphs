@@ -1,16 +1,18 @@
 
 // Where to put the graphs
-var destinationFolder = "C:/graphs/2015/v7";
+var destinationFolder = "C:/graphs/2015/v8";
 //var destinationFolder = "/Users/MLP/Repos/graphs";
 
 // Data
 //#include 'values/2015/private-banking/se/histdev.jsx';
-#include 'values/2015/private-banking/se/capdev.jsx';
+//#include 'values/2015/private-banking/se/capdev.jsx';
 /*
 #include 'values/2015/retail-banking/se/histdev.jsx';
 #include 'values/2015/retail-banking/se/capdev.jsx';
+*/
 #include 'values/2015/retail-banking/fi/histdev.jsx';
 #include 'values/2015/retail-banking/fi/capdev.jsx';
+/*
 #include 'values/2015/retail-banking/dk/capdev.jsx';
 #include 'values/2015/retail-banking/dk/histdev.jsx';
 #include 'values/2015/retail-banking/no/capdev.jsx';
