@@ -1,9 +1,10 @@
 
-// Where to put the graphs
-var destinationFolder = "C:/graphs/2015/v8";
-//var destinationFolder = "/Users/MLP/Repos/graphs";
+// Setup
+//var destinationFolder = "C:/graphs/2015/v8";
+var destinationFolder = "/Users/MLP/Repos/graphs/test";
+var thisPsdFolder = "/Users/MLP/Repos/fpt-graphs/psd/2015";
 
-// Data
+// Country specific data
 //#include 'values/2015/private-banking/se/histdev.jsx';
 //#include 'values/2015/private-banking/se/capdev.jsx';
 /*
@@ -19,11 +20,11 @@ var destinationFolder = "C:/graphs/2015/v8";
 #include 'values/2015/retail-banking/no/histdev.jsx';
 */
 
-// Choose what to run (the PSD that is open in Photoshop)
-//#include 'scripts/histdev_s.jsx';
-//#include 'scripts/capdevb_s.jsx';
-//#include 'scripts/capdevb_l.jsx';
-//#include 'scripts/capdevl_l.jsx';
+// These scripts will run when this file is executed from PS
+#include 'scripts/histdev_s.jsx';
+#include 'scripts/capdevb_s.jsx';
+#include 'scripts/capdevb_l.jsx';
+#include 'scripts/capdevl_l.jsx';
 #include 'scripts/capdevl_s.jsx';
 
 // Needed functions (leave as is)

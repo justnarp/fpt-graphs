@@ -1,5 +1,7 @@
 ﻿// Run from setup-and-run.jsx
 
+app.open (new File(thisPsdFolder + '/capdevb_l.psd'));
+
 // Watch the magic happen
 var countryData = {};
 countryData['private-banking'] = {};
@@ -185,6 +187,8 @@ for (var bankType in countryData) {
     }
   }
 }
+
+app.activeDocument.close(SaveOptions.DONOTSAVECHANGES);
 
 function calculateWhereIsZero(minReturn3Year, expReturn3Year) {
   return middlePixel - (expReturn3Year - 0) / (expReturn3Year - minReturn3Year) * (middlePixel - leftMostPixel);

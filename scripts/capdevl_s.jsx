@@ -1,5 +1,6 @@
-﻿
-// Run from setup-and-run.jsx
+﻿// Run from setup-and-run.jsx
+
+app.open (new File(thisPsdFolder + '/capdevl_s.psd'));
 
 // Watch the magic happen
 var countryData = {};
@@ -188,6 +189,8 @@ for (var bankType in countryData) {
     }
   }
 }
+
+app.activeDocument.close(SaveOptions.DONOTSAVECHANGES);
 
 function calculateYAxisPixels(valueInPercent) {
     return highestYPixels + (highestValueInPercent - valueInPercent) / (highestValueInPercent - lowestValueInPercent) * (lowestYPixels - highestYPixels);
