@@ -81,10 +81,6 @@ for (var bankType in countryData) {
         positionLayerCenter("minReturn6YearsDot", xAxisPos[5], calculateYAxisPixels(minReturn[5]));
         positionLayerCenter("minReturn10YearsDot", xAxisPos[9], calculateYAxisPixels(minReturn[9]));
         positionLayerCenter("minReturn20YearsDot", xAxisPos[19], calculateYAxisPixels(minReturn[19]));
-        getLayer("minReturn3YearsText").textItem.contents = Math.round(minReturn[2]) + "%";
-        getLayer("minReturn6YearsText").textItem.contents = Math.round(minReturn[5]) + "%";
-        getLayer("minReturn10YearsText").textItem.contents = Math.round(minReturn[9]) + "%";
-        getLayer("minReturn20YearsText").textItem.contents = Math.round(minReturn[19]) + "%";
         positionLayerCenter("minReturn3YearsText", xAxisPos[2], calculateYAxisPixels(minReturn[2]));
         positionLayerCenter("minReturn6YearsText", xAxisPos[5], calculateYAxisPixels(minReturn[5]));
         positionLayerCenter("minReturn10YearsText", xAxisPos[9], calculateYAxisPixels(minReturn[9]));
@@ -99,10 +95,6 @@ for (var bankType in countryData) {
         positionLayerCenter("expReturn6YearsDot", xAxisPos[5], calculateYAxisPixels(expReturn[5]));
         positionLayerCenter("expReturn10YearsDot", xAxisPos[9], calculateYAxisPixels(expReturn[9]));
         positionLayerCenter("expReturn20YearsDot", xAxisPos[19], calculateYAxisPixels(expReturn[19]));
-        getLayer("expReturn3YearsText").textItem.contents = Math.round(expReturn[2]) + "%";
-        getLayer("expReturn6YearsText").textItem.contents = Math.round(expReturn[5]) + "%";
-        getLayer("expReturn10YearsText").textItem.contents = Math.round(expReturn[9]) + "%";
-        getLayer("expReturn20YearsText").textItem.contents = Math.round(expReturn[19]) + "%";
         positionLayerCenter("expReturn3YearsText", xAxisPos[2], calculateYAxisPixels(expReturn[2]));
         positionLayerCenter("expReturn6YearsText", xAxisPos[5], calculateYAxisPixels(expReturn[5]));
         positionLayerCenter("expReturn10YearsText", xAxisPos[9], calculateYAxisPixels(expReturn[9]));
@@ -117,10 +109,6 @@ for (var bankType in countryData) {
         positionLayerCenter("maxReturn6YearsDot", xAxisPos[5], calculateYAxisPixels(maxReturn[5]));
         positionLayerCenter("maxReturn10YearsDot", xAxisPos[9], calculateYAxisPixels(maxReturn[9]));
         positionLayerCenter("maxReturn20YearsDot", xAxisPos[19], calculateYAxisPixels(maxReturn[19]));
-        getLayer("maxReturn3YearsText").textItem.contents = Math.round(maxReturn[2]) + "%";
-        getLayer("maxReturn6YearsText").textItem.contents = Math.round(maxReturn[5]) + "%";
-        getLayer("maxReturn10YearsText").textItem.contents = Math.round(maxReturn[9]) + "%";
-        getLayer("maxReturn20YearsText").textItem.contents = Math.round(maxReturn[19]) + "%";
         positionLayerCenter("maxReturn3YearsText", xAxisPos[2], calculateYAxisPixels(maxReturn[2]));
         positionLayerCenter("maxReturn6YearsText", xAxisPos[5], calculateYAxisPixels(maxReturn[5]));
         positionLayerCenter("maxReturn10YearsText", xAxisPos[9], calculateYAxisPixels(maxReturn[9]));
@@ -196,6 +184,19 @@ for (var bankType in countryData) {
         };
 
         for (i = 0; i < locales[country].length; i++) {
+
+          getLayer("minReturn3YearsText").textItem.contents = roundNumber(minReturn[2], locales[country][i]) + "%";
+          getLayer("minReturn6YearsText").textItem.contents = roundNumber(minReturn[5], locales[country][i]) + "%";
+          getLayer("minReturn10YearsText").textItem.contents = roundNumber(minReturn[9], locales[country][i]) + "%";
+          getLayer("minReturn20YearsText").textItem.contents = roundNumber(minReturn[19], locales[country][i]) + "%";
+          getLayer("expReturn3YearsText").textItem.contents = roundNumber(expReturn[2], locales[country][i]) + "%";
+          getLayer("expReturn6YearsText").textItem.contents = roundNumber(expReturn[5], locales[country][i]) + "%";
+          getLayer("expReturn10YearsText").textItem.contents = roundNumber(expReturn[9], locales[country][i]) + "%";
+          getLayer("expReturn20YearsText").textItem.contents = roundNumber(expReturn[19], locales[country][i]) + "%";
+          getLayer("maxReturn3YearsText").textItem.contents = roundNumber(maxReturn[2], locales[country][i]) + "%";
+          getLayer("maxReturn6YearsText").textItem.contents = roundNumber(maxReturn[5], locales[country][i]) + "%";
+          getLayer("maxReturn10YearsText").textItem.contents = roundNumber(maxReturn[9], locales[country][i]) + "%";
+          getLayer("maxReturn20YearsText").textItem.contents = roundNumber(maxReturn[19], locales[country][i]) + "%";
 
           var translatedYear = translationYear[locales[country][i]];
 

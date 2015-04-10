@@ -42,22 +42,22 @@ for (var bankType in countryData) {
             expReturn = countryData[bankType][country][dataType].expReturn,
             minReturn = countryData[bankType][country][dataType].minReturn;
 
-
+/*
 // Do the minReturn dots and text
-        app.activeDocument.layers.getByName("maxLoss3YearsText").textItem.contents = Math.round(minReturn[2]) + "%";
-        app.activeDocument.layers.getByName("maxLoss6YearsText").textItem.contents = Math.round(minReturn[5]) + "%";
-        app.activeDocument.layers.getByName("maxLoss10YearsText").textItem.contents = Math.round(minReturn[9]) + "%";
+        app.activeDocument.layers.getByName("maxLoss3YearsText").textItem.contents = roundNumber(minReturn[2]) + "%";
+        app.activeDocument.layers.getByName("maxLoss6YearsText").textItem.contents = roundNumber(minReturn[5]) + "%";
+        app.activeDocument.layers.getByName("maxLoss10YearsText").textItem.contents = roundNumber(minReturn[9]) + "%";
 
 // Do the expReturn dots and text
-        app.activeDocument.layers.getByName("exp3YearsText").textItem.contents = Math.round(expReturn[2]) + "%";
-        app.activeDocument.layers.getByName("exp6YearsText").textItem.contents = Math.round(expReturn[5]) + "%";
-        app.activeDocument.layers.getByName("exp10YearsText").textItem.contents = Math.round(expReturn[9]) + "%";
+        app.activeDocument.layers.getByName("exp3YearsText").textItem.contents = roundNumber(expReturn[2]) + "%";
+        app.activeDocument.layers.getByName("exp6YearsText").textItem.contents = roundNumber(expReturn[5]) + "%";
+        app.activeDocument.layers.getByName("exp10YearsText").textItem.contents = roundNumber(expReturn[9]) + "%";
 
 // Do the maxReturn dots and text
-        app.activeDocument.layers.getByName("maxReturn3YearsText").textItem.contents = Math.round(maxReturn[2]) + "%";
-        app.activeDocument.layers.getByName("maxReturn6YearsText").textItem.contents = Math.round(maxReturn[5]) + "%";
-        app.activeDocument.layers.getByName("maxReturn10YearsText").textItem.contents = Math.round(maxReturn[9]) + "%";
-
+        app.activeDocument.layers.getByName("maxReturn3YearsText").textItem.contents = roundNumber(maxReturn[2]) + "%";
+        app.activeDocument.layers.getByName("maxReturn6YearsText").textItem.contents = roundNumber(maxReturn[5]) + "%";
+        app.activeDocument.layers.getByName("maxReturn10YearsText").textItem.contents = roundNumber(maxReturn[9]) + "%";
+*/
 
         // Prepare the gradients
         var gradientWidth = 0;
@@ -117,6 +117,20 @@ for (var bankType in countryData) {
         };
 
         for (var i = 0; i < locales[country].length; i++) {
+          // Do the minReturn dots and text
+          app.activeDocument.layers.getByName("maxLoss3YearsText").textItem.contents = roundNumber(minReturn[2], locales[country][i]) + "%";
+          app.activeDocument.layers.getByName("maxLoss6YearsText").textItem.contents = roundNumber(minReturn[5], locales[country][i]) + "%";
+          app.activeDocument.layers.getByName("maxLoss10YearsText").textItem.contents = roundNumber(minReturn[9], locales[country][i]) + "%";
+
+          // Do the expReturn dots and text
+          app.activeDocument.layers.getByName("exp3YearsText").textItem.contents = roundNumber(expReturn[2], locales[country][i]) + "%";
+          app.activeDocument.layers.getByName("exp6YearsText").textItem.contents = roundNumber(expReturn[5], locales[country][i]) + "%";
+          app.activeDocument.layers.getByName("exp10YearsText").textItem.contents = roundNumber(expReturn[9], locales[country][i]) + "%";
+
+          // Do the maxReturn dots and text
+          app.activeDocument.layers.getByName("maxReturn3YearsText").textItem.contents = roundNumber(maxReturn[2], locales[country][i]) + "%";
+          app.activeDocument.layers.getByName("maxReturn6YearsText").textItem.contents = roundNumber(maxReturn[5], locales[country][i]) + "%";
+          app.activeDocument.layers.getByName("maxReturn10YearsText").textItem.contents = roundNumber(maxReturn[9], locales[country][i]) + "%";
 
           // Setup language
           if (locales[country][i] == 'sv') {
