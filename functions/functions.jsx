@@ -16,3 +16,4 @@
 #include "functions/duplicate-layer.jsx";
 #include 'functions/select-mask-inverse-delete.jsx';
 #include 'functions/add-text-layer.jsx';
+#include 'functions/round-number.jsx';
