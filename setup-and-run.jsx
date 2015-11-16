@@ -1,6 +1,6 @@
 
 // Setup
-var destinationFolder = "C:/graphs/2015/v10";
+var destinationFolder = "C:/temp/fpt-graphs/2016/v1";
 var thisPsdFolder = "C:/Repos/fpt-graphs/psd/2015";
 //var destinationFolder = "/Users/MLP/Repos/graphs/test";
 //var thisPsdFolder = "/Users/MLP/Repos/fpt-graphs/psd/2015";
