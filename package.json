@@ -1,0 +1,6 @@
+{
+  "name": "fpt-graphs",
+  "dependencies": {
+    "node-xlsx": "^0.6.0"
+  }
+}

@@ -13,6 +13,8 @@ if(typeof dataRBFI != 'undefined')countryData['retail-banking']['FI'] = dataRBFI
 if(typeof dataRBDK != 'undefined')countryData['retail-banking']['DK'] = dataRBDK;
 if(typeof dataRBNO != 'undefined')countryData['retail-banking']['NO'] = dataRBNO;
 
+countryData['retail-banking']['DK'] = excelValues.RBDK;
+
 // Graph dimensions
 var graphDimensionX = 400,
     graphDimensionY = 290,
